@@ -14,7 +14,7 @@ Write-Verbose $remote_xls.FullName
 Write-Verbose $remote_xls.LastWriteTime
 
 # ローカルサーバーの対象ファイルを選択
-$local_xls = Get-ChildItem -Path $LOCAL_HOME | Where-Object {$_.Name -like "*明光ネットワークジャパン_注文リスト*.xlsx" -and $_.LastWriteTime -gt (Get-Date).AddDays(-7)} #| Select FullName
+$local_xls = Get-ChildItem -Path $LOCAL_HOME | Where-Object {$_.Name -like "*明光ネットワークジャパン_注文リスト*.xlsx"} | Sort-Object -Property LastWriteTime, Name -Descending | Select-Object -First 1
 $old_order_list_xls_unix_time = ([datetimeoffset]$local_xls.LastWriteTime).ToUnixTimeSeconds()
 Write-Verbose "Local Server ->>>"
 Write-Verbose $local_xls.Name
